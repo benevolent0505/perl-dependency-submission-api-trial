@@ -15,8 +15,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup perl
-        uses: shogo82148/actions-setup-perl@v1
+      - uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: '5.34'
         run: cpanm Carmel --notest
