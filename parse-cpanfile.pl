@@ -20,8 +20,10 @@ my $resolved = {};
 for (values %{ $prereqs->as_string_hash }) {
     my $v = $_->{requires};
     for my $k (keys %$v) {
-        $resolved->{$k} = {
-            package_url => sprintf("pkg:cpan/%s", uri_escape($k)),
+        my $key = $k;
+        $k =~ s/::/\-/g;
+        $resolved->{$key} = {
+            package_url => sprintf("pkg:cpan/%s", $k),
         };
     }
 }
