@@ -20,7 +20,7 @@ for (values %{ $prereqs->as_string_hash }) {
     my $v = $_->{requires};
     for my $k (keys %$v) {
         $resolved->{$k} = {
-            package_url => sprintf("pkg:/metacpan/%s\@%s", $k, $v->{$k}),
+            package_url => sprintf("pkg:metacpan/%s\@%s", $k, $v->{$k}),
         };
     }
 }
