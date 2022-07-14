@@ -1,0 +1,24 @@
+name: Perl Dependency Submission
+on:
+  push:
+    branches:
+      - main
+
+# 依存関係をサブミットするために、APIにはリポジトリへの書き込み権限が必要
+permissions:
+  contents: write
+
+jobs:
+  go-action-detection:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v3
+
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: '5.34'
+      - run: cpanm --installdeps .
+
+      - name: Generate manifest
+        run: parse-cpanfile.pl
