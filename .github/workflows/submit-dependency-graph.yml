@@ -12,26 +12,30 @@ jobs:
   perl-action-detection:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout Repository'
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - uses: shogo82148/actions-setup-perl@v1
+      - name: Setup perl
+        uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: '5.34'
-      - run: cpanm --installdeps --notest .
+        run: cpanm Carmel --notest &&
+
+      - name: Setup dependencies
+        run: carmel install && carmel rollup
 
       - name: Generate data
-        run: perl ./parse-cpanfile.pl > data.json
+        run: carmel list
 
-      - name: Submit
-        run: |
-          curl \
-            -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            https://api.github.com/repos/benevolent0505/perl-cpan-dep-test/dependency-graph/snapshots \
-            -d @data.json
-
-      - name: delete data
-        run: rm data.json
+#      - name: Submit
+#        run: |
+#          curl \
+#            -X POST \
+#            -H "Accept: application/vnd.github+json" \
+#            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+#            https://api.github.com/repos/benevolent0505/perl-cpan-dep-test/dependency-graph/snapshots \
+#            -d @data.json
+#
+#      - name: delete data
+#        run: rm data.json
 
