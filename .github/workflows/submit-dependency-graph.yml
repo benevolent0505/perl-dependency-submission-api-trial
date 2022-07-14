@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  go-action-detection:
+  perl-action-detection:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout Repository'
@@ -18,7 +18,7 @@ jobs:
       - uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: '5.34'
-      - run: cpanm --installdeps .
+      - run: cpanm --installdeps --notest .
 
       - name: Generate manifest
-        run: parse-cpanfile.pl
+        run: perl ./parse-cpanfile.pl
