@@ -39,13 +39,13 @@ my $manifest = +{
     job => {
         correlator => $job,
         id         => $run_id,
-        detector   => {
-            name    => 'perl detector',
-            version => '0.0.1',
-            url     => 'https://github.com/benevolent0505/perl-cpan-dep-test',
-        },
-        scanned    => strftime('%Y-%m-%dT%H:%M:%SZ', gmtime($now)),
     },
+    detector   => {
+        name    => 'perl detector',
+        version => '0.0.1',
+        url     => 'https://github.com/benevolent0505/perl-cpan-dep-test',
+    },
+    scanned    => strftime('%Y-%m-%dT%H:%M:%SZ', gmtime($now)),
     manifests => $cpanfile_manifest,
     version => 0,
 };
