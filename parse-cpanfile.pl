@@ -3,6 +3,7 @@ use warnings;
 use Module::CPANfile;
 use Carton::Snapshot;
 use JSON::XS;
+use POSIX qw(strftime);
 
 my $file = Module::CPANfile->load('cpanfile');
 my $prereqs = $file->prereqs;
@@ -25,11 +26,28 @@ for (values %{ $prereqs->as_string_hash }) {
 }
 $cpanfile_manifest->{cpanfile}->{resolved} = $resolved;
 
-print encode_json($cpanfile_manifest);
+my $sha = $ENV{GITHUB_SHA};
+my $job = $ENV{GITHUB_JOB};
+my $run_id = $ENV{GITHUB_RUN_ID};
+my $now = time();
 
-# my $snapshot = carton::snapshot->new(path => 'cpanfile.snapshot');
-# $snapshot->load;
-#
-# for my $pkg ($snapshot->packages) {
-#     p $pkg;
-# }
+my $manifest = +{
+    owner => 'benevolent0505',
+    repo => 'perl-cpan-dep-test',
+    sha => $sha,
+    ref => 'refs/heads/main',
+    job => {
+        correlator => $job,
+        id         => $run_id,
+        detector   => {
+            name    => 'perl detector',
+            version => '0.0.1',
+            url     => 'https://github.com/benevolent0505/perl-cpan-dep-test',
+        },
+        scanned    => strftime('%Y-%m-%dT%H:%M:%SZ', gmtime($now)),
+    },
+    manifests => $cpanfile_manifest,
+    version => 0,
+};
+
+print encode_json($manifest);
