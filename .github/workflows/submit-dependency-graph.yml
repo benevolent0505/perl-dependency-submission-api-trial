@@ -21,7 +21,7 @@ jobs:
       - run: cpanm Carmel --notest
 
       - name: Setup dependencies
-        run: carmel install && carmel rollup
+        run: carmel install && carmel rollout
 
       - name: Generate data
         run: carmel list
