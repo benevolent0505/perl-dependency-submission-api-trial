@@ -4,6 +4,7 @@ use Module::CPANfile;
 use Carton::Snapshot;
 use JSON::XS;
 use POSIX qw(strftime);
+use URI::Escape;
 
 my $file = Module::CPANfile->load('cpanfile');
 my $prereqs = $file->prereqs;
@@ -20,7 +21,7 @@ for (values %{ $prereqs->as_string_hash }) {
     my $v = $_->{requires};
     for my $k (keys %$v) {
         $resolved->{$k} = {
-            package_url => sprintf("pkg:cpan/%s", $k),
+            package_url => sprintf("pkg:cpan/%s", uri_escape($k)),
         };
     }
 }
