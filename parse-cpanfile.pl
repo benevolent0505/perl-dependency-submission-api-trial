@@ -32,8 +32,7 @@ my $run_id = $ENV{GITHUB_RUN_ID};
 my $now = time();
 
 my $manifest = +{
-    owner => 'benevolent0505',
-    repo => 'perl-cpan-dep-test',
+    version => 0,
     sha => $sha,
     ref => 'refs/heads/main',
     job => {
@@ -47,7 +46,6 @@ my $manifest = +{
     },
     scanned    => strftime('%Y-%m-%dT%H:%M:%SZ', gmtime($now)),
     manifests => $cpanfile_manifest,
-    version => 0,
 };
 
 print encode_json($manifest);
