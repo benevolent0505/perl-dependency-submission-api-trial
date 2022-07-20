@@ -81,7 +81,7 @@ while ( my $result = $scroller->next ) {
 
     if ($namespace && $name) {
         $resolved->{$main_module} = {
-            package_url => sprintf("pkg:github/%s/%s", lc($namespace), lc($name)),
+            package_url => sprintf("pkg:github/%s/%s\@v0.09", lc($namespace), lc($name)),
         };
     }
 }
