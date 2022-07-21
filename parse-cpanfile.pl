@@ -45,7 +45,7 @@ my $manifest = +{
     detector   => {
         name    => 'perl detector',
         version => '0.0.1',
-        url     => 'https://github.com/benevolent0505/perl-cpan-dep-test',
+        url     => 'https://github.com/benevolent0505/perl-dependency-submission-api-trial',
     },
     scanned    => strftime('%Y-%m-%dT%H:%M:%SZ', gmtime($now)),
     manifests => $cpanfile_manifest,
