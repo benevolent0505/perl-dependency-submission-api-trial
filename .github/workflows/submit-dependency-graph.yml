@@ -24,7 +24,7 @@ jobs:
         run: carmel install && carmel rollout
 
       - name: Generate data
-        run: carmel list | carmel exec -- perl scripts/generate-cpanfile-snapshot-dependencies-data.pl > data.json
+        run: carmel list | carmel exec -- perl scripts/parse-carmel-list.pl > data.json
 
       - name: Submit
         run: |
